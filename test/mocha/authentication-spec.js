@@ -2,7 +2,11 @@ import { Map, List, fromJS } from 'immutable';
 import { expect } from 'chai';
 
 import makeStore   from '../../src/redux/store/store';
+<<<<<<< HEAD
 import { setUser } from '../../src/redux/actions/actions';
+=======
+import { setUser, removeUser } from '../../src/redux/actions/actions';
+>>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
 
 describe('authentication', () => {
 
@@ -17,7 +21,11 @@ describe('authentication', () => {
     // DEFINE user
     const user = {
       firstName: 'Eric',
+<<<<<<< HEAD
       lastName: 'Churchill',
+=======
+      lastName: 'Churchill'
+>>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
     };
 
     // DISPATCH Action to store
@@ -29,7 +37,12 @@ describe('authentication', () => {
         firstName: 'Eric',
         lastName: 'Churchill',
         facebookId: undefined,
+<<<<<<< HEAD
         email: undefined
+=======
+        email: undefined,
+        image: undefined
+>>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
       })
     }));
   });
@@ -49,8 +62,22 @@ describe('authentication', () => {
         firstName: 'Eric',
         lastName: 'Churchill',
         facebookId: undefined,
+<<<<<<< HEAD
         email: undefined
       })
     }));
   });
+=======
+        email: undefined,
+        image: undefined
+      })
+    }));
+  });
+
+  it('logs user out when logout action is triggered', () => {
+    store.dispatch(removeUser());
+
+    expect(store.getState()).to.equal(Map({ loggedIn: false }));
+  });
+>>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
 });

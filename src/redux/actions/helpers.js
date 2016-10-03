@@ -1,18 +1,39 @@
 import $ from 'jquery';
-
-import { store } from '../app.jsx';
-import { setUser } from '../../src/redux/actions/actions';
+import { setUser, setPlants, setAdmin } from './actions';
 
 
 export function _getUser() {
-  $.ajax({
-    method: 'GET',
-    url: 'api/auth/loggedin',
-    success: user => {
-      store.dispatch(setUser(user));
-    },
-    error: error => {
-      throw new Error(error);
-    }
-  });
+  return dispatch => {
+    $.ajax({
+      method: 'GET',
+      url: 'api/auth/loggedin'
+    }).then(user => {
+      if( user ){
+        dispatch(setUser(user));
+      }
+      // TODO: WRITE failed login action creator
+    });
+  };
+}
+
+export function _getPlants() {
+  return dispatch => {
+    $.ajax({
+      method: 'GET',
+      url: 'api/plantFacts'
+    }).then(plants => {
+      dispatch(setPlants(plants));
+    });
+  };
+}
+
+export function _getAdmin() {
+  return dispatch => {
+    $.ajax({
+      method: 'GET',
+      url: 'api/admin'
+    }).then(admin => {
+      dispatch(setAdmin(admin));
+    });
+  };
 }
