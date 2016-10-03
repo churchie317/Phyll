@@ -62,7 +62,7 @@ export default class Home extends React.Component {
             <Search className="form-control form-control-lg" plants={ this.state.plants } fetchPlant={ this.state._fetchPlant } dataToggle="modal" dataTarget="#plantModal"/>
           </div>
         </div>
-        <div className="row content"> 
+        <div className="row content">
           <div className="content-top column container-fluid" role="document">
             <div id="plantModal" tabIndex="-1" role="dialog" aria-hidden="true">
               <div id="plantFact"></div>
@@ -100,7 +100,7 @@ export default class Home extends React.Component {
                 <div className="card-block">
                   <p className="card-text">There are so many wonderful plants for your home. Discover the perfect one.</p>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@ export default class Home extends React.Component {
         if(plantFacts.length!==0){
           render(
             <PlantFacts plantFacts={plantFacts[0]} user={ this.state.loggedInUser }/>,
-            document.getElementById('plantFact'),
+            document.getElementById('plantFact')
           );
         }
       }
