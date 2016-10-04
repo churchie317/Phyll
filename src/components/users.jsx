@@ -7,14 +7,15 @@ export default class Users extends React.Component {
   }
 
   render() {
-    const users = this.props.users;
+    let users = this.props.admin;
 
     if (users) {
+      users = users.toArray();
       return(
         <div className={ 'user-cards' }>
           { users.map( user => {
             return (
-              <UserCard key={user.id} user= { user }/>
+              <UserCard user= { user }/>
             );
           }) }
         </div>

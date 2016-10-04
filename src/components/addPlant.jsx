@@ -15,7 +15,7 @@ export default class AddPlant extends React.Component {
   render() {
     let plantFacts = this.props.plantFacts;
     let user = this.props.user;
-    
+
     if (this.props.plantFacts){
 
       return (
@@ -44,7 +44,6 @@ export default class AddPlant extends React.Component {
   }
 
   _fetchPlant(plant){
-    //console.log(plant, "inside addMyPlant");
     $.ajax({
       method: 'POST',
       url: '/api/plantFacts',

@@ -56,7 +56,7 @@ app.use(passport.session());
 
 const apiApp      = require('./controllers/api/api');
 const ioApp       = require('./controllers/io/io');
-const vendorApp   = require('./controllers/vendor/vendor');
+// const vendorApp   = require('./controllers/vendor/vendor');
 
 // **********************************    MOVE ME! **********************************
 // const plantsLibrary = require('./controllers/api/plants-library');
@@ -73,7 +73,7 @@ app.use('/api', apiApp);
 app.use('/io', ioApp);
 
 // VENDOR sub-app
-app.use('/vendor', vendorApp);
+// app.use('/vendor', vendorApp);
 
 //auth0 call back route
 app.get('/callback',

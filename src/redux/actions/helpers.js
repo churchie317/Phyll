@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { setUser, setPlants, setAdmin } from './actions';
+import { setUser, setPlants, setAdmin, setPlant } from './actions';
 
 
 export function _getUser() {
@@ -23,6 +23,23 @@ export function _getPlants() {
       url: 'api/plantFacts'
     }).then(plants => {
       dispatch(setPlants(plants));
+    });
+  };
+}
+
+export function _fetchPlant(plant){
+  return dispatch => {
+    $.ajax({
+      method: 'POST',
+      url: 'api/plantFacts',
+      json: true,
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify({ plant:plant }),
+      success: (plantFacts) => {
+        if(plantFacts.length!==0){
+          dispatch(setPlant(plantFacts[0]));
+        }
+      }
     });
   };
 }

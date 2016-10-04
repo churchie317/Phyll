@@ -15,11 +15,12 @@ export default class PlantFacts extends React.Component {
   }
 
   render() {
+
+    console.log('look ma!');
     const keys = Object.keys(this.props.plantFacts).slice(1);
     keys.splice(keys.indexOf('img'),1) ;
     const plantFacts = this.props.plantFacts;
     const user = this.props.user;
-    // console.log(plantFacts, 'inside PlantFacts');
 
     if (this.state.newPlant) {
       return (

@@ -33,6 +33,13 @@ export function setPlants(plants) {
   };
 }
 
+export function setPlant(plant) {
+  return {
+    type: 'SET_PLANT',
+    plant
+  };
+}
+
 export function setAdmin(admin) {
   return {
     type: 'SET_ADMIN',

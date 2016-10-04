@@ -2,11 +2,7 @@ import { Map, List, fromJS } from 'immutable';
 import { expect } from 'chai';
 
 import makeStore   from '../../src/redux/store/store';
-<<<<<<< HEAD
-import { setUser } from '../../src/redux/actions/actions';
-=======
 import { setUser, removeUser } from '../../src/redux/actions/actions';
->>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
 
 describe('authentication', () => {
 
@@ -20,12 +16,8 @@ describe('authentication', () => {
 
     // DEFINE user
     const user = {
-      firstName: 'Eric',
-<<<<<<< HEAD
-      lastName: 'Churchill',
-=======
-      lastName: 'Churchill'
->>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
+      given_name: 'Eric',
+      family_name: 'Churchill',
     };
 
     // DISPATCH Action to store
@@ -36,13 +28,11 @@ describe('authentication', () => {
       user: Map({
         firstName: 'Eric',
         lastName: 'Churchill',
-        facebookId: undefined,
-<<<<<<< HEAD
-        email: undefined
-=======
+        timezone: undefined,
+        name: undefined,
+        id: undefined,
         email: undefined,
         image: undefined
->>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
       })
     }));
   });
@@ -50,8 +40,8 @@ describe('authentication', () => {
   it('forbids user login when one is already signed in', () => {
 
     const user = {
-      firstName: 'Phoebe',
-      lastName: 'Maio'
+      given_name: 'Phoebe',
+      family_name: 'Maio'
     };
 
     store.dispatch(setUser(user));
@@ -61,13 +51,9 @@ describe('authentication', () => {
       user: Map({
         firstName: 'Eric',
         lastName: 'Churchill',
-        facebookId: undefined,
-<<<<<<< HEAD
-        email: undefined
-      })
-    }));
-  });
-=======
+        timezone: undefined,
+        name: undefined,
+        id: undefined,
         email: undefined,
         image: undefined
       })
@@ -79,5 +65,4 @@ describe('authentication', () => {
 
     expect(store.getState()).to.equal(Map({ loggedIn: false }));
   });
->>>>>>> b81ffc95018f3c1aba4f1a1fcabb5630bd632849
 });

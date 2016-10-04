@@ -18,9 +18,10 @@ export const setUser = (state, user) => {
                 firstName: user.given_name,
                 lastName: user.family_name,
                 name: user.name,
-                facebookId: user.facebookId,
+                id: user.fb_id,
                 email: user.email,
-                image: user.picture_large
+                image: user.picture_large,
+                timezone: user.timezone
               }));
 };
 
@@ -30,25 +31,25 @@ export function removeUser(state) {
 };
 
 export function setPlants(state, plants) {
-  console.log(!state.getIn([ 'plants', 'fetched' ]));
-  if( !state.getIn([ 'plants', 'fetched' ]) ){
-    return state.set('plants',
-      Map({
-        fetched: true,
-        plants: List(plants)
-      })
-    );
-  } else {
-    return state;
-  }
+  return state.set('plants',
+    Map({
+      fetched: true,
+      plants: List(plants)
+    })
+  );
 }
 
-export function setAdmin(state, admin){
-  console.log('APP.js: setAdmin:', List.of(admin));
+export function setAdmin(state, admin) {
   return state.set('admin',
     Map({
       fetched: true,
-      admin: List.of(admin)
+      admin: List(admin)
     })
   );
+}
+
+export function setPlant(state, plant) {
+  return state.set('plant', Map({
+    plant: plant
+  }));
 }

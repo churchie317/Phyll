@@ -14,7 +14,7 @@ import Map          from '../components/map/index.jsx';
 import Chatbot      from '../components/chatbot.jsx';
 import AddPlant     from '../components/addPlant.jsx';
 import DashBar      from '../components/dashboardBar.jsx';
-import { _getAdmin, _getPlants } from '../redux/actions/helpers';
+import { _getAdmin, _getPlants, _fetchPlant } from '../redux/actions/helpers';
 
 require('../stylesheets/main.scss');
 
@@ -22,19 +22,12 @@ require('../stylesheets/main.scss');
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      _fetchPlant: this._fetchPlant.bind(this)
-    };
+
   }
 
   componentWillMount() {
-    this.props.fetchAdmin();
     this.props.fetchPlants();
-  }
-
-  componentWillUpdate() {
-    this.props.admin;
-    this.props.plants;
+    this.props.fetchAdmin();
   }
 
   // TODO: The initial div needs to go in refactor as it is duplicated in nav
@@ -42,14 +35,16 @@ class Home extends React.Component {
   render() {
 
     let dashboard = this.props.user ? <DashBar loggedInUser={ this.state.loggedInUser }/> : <div id="dashBar"></div>;
-    console.log('this.props.admin:', this.props.admin);
-    console.log('this.props.plants:', this.props.plants);
+
     return(
 
       <div className="container-fluid">
         <div className="row search">
           <div className="column jumbotron jumbo-bg">
-            <Search className="form-control form-control-lg" plants={ this.state.plants } fetchPlant={ this.state._fetchPlant } dataToggle="modal" dataTarget="#plantModal"/>
+          { this.props.plants ?
+            <Search className="form-control form-control-lg" { ...this.props } dataToggle="modal" dataTarget="#plantModal"/> :
+            null
+          }
           </div>
         </div>
         <div className="row content">
@@ -63,7 +58,7 @@ class Home extends React.Component {
         <div className="row content">
           <div className="content-2 col-lg-7 push-lg-5 container-fluid">
             <div className="card-wrapper">
-              <Chatbot userName={this.state.userName} loggedIn={this.state.isLoggedIn}/>
+              <Chatbot { ...this.props }/>
               <div className="card hidden-xs hidden-sm">
                 <div className="card-header">
                   Active Bots
@@ -81,7 +76,7 @@ class Home extends React.Component {
             </div>
           </div>
           <div className="content-1 col-lg-5 pull-lg-7 container-fluid">
-            <Users users={ this.props.admin }/>
+            <Users { ...this.props }/>
             <div className="card-wrapper">
               <div className="card">
                 <div className="card-header">
@@ -110,36 +105,33 @@ class Home extends React.Component {
 
     );
   }
-  _fetchPlant(plant){
-    $.ajax({
-      method: 'POST',
-      url: 'api/plantFacts',
-      json: true,
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify({ plant:plant }),
-      success: (plantFacts) => {
-        if(plantFacts.length!==0){
-          render(
-            <PlantFacts plantFacts={plantFacts[0]} user={ this.state.loggedInUser }/>,
-            document.getElementById('plantFact')
-          );
-        }
-      }
-    });
-  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchAdmin  : () => dispatch(_getAdmin()),
-    fetchPlants : () => dispatch(_getPlants())
+    fetchPlants : () => dispatch(_getPlants()),
+    fetchPlant  : (plant) => dispatch(_fetchPlant(plant))
   };
 }
 
 function mapStateToProps(state) {
+  const user = state.get('user');
+  if( state.get('loggedIn') ){
+    return {
+      plants: state.getIn([ 'plants', 'plants' ]),
+      admin: state.getIn([ 'admin', 'admin' ]),
+      loggedIn: state.get('loggedIn'),
+      username: user.get('name'),
+      image: user.get('image'),
+      firstName: user.get('firstName'),
+      lastName: user.get('lastName')
+    };
+  }
   return {
     plants: state.getIn([ 'plants', 'plants' ]),
-    admin: state.getIn([ 'admin', 'admin' ])
+    admin: state.getIn([ 'admin', 'admin' ]),
+    loggedIn: state.get('loggedIn')
   };
 }
 
